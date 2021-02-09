@@ -1,0 +1,71 @@
+echo "# Guess-the-number-game" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/JTrox505/Guess-the-number-game.git
+git push -u origin main
+
+
+print(f"This is your account {Character.name}! These are the acount's all time high scores:\nOn easy difficulty:  {Character.highscore_easy}\nOn medium difficulty:  {Character.highscore_medium}\nOn hard difficulty:  {Character.highscore_hard}\nsee if you can beat them!   (100 is a perfect score so you won't be able to top that)")
+print("\n")
+
+
+
+import random
+Repeat = True
+while Repeat == True:
+  Difficulty = input("What difficulty do you want to chose (easy, medium, or hard)?   ")
+  if Difficulty == "easy":
+    Random_number = (random.randint(1,10))
+  elif Difficulty == "medium":
+    Random_number = (random.randint(1,30))
+  else:
+    Random_number = (random.randint(1,100))
+
+  Attempts = 0
+  Guess = False
+  while Guess == False:
+    if Difficulty == "easy":
+      Player_guess = (int(input("Pick a number between 1 and 10    ")))
+    elif Difficulty == "medium":
+      Player_guess = (int(input("Pick a number between 1 and 30    ")))
+    else:
+      Player_guess = (int(input("Pick a number between 1 and 100    ")))
+
+    if Player_guess == Random_number:
+      print("You've Won!")
+      print("\n")
+      Attempts+=1
+      break 
+    elif Player_guess > Random_number:
+      print("Your number is too high")
+      print("\n")
+      Attempts+=1
+    else:
+      print("your number is too low")
+      print("\n")
+      Attempts+=1
+
+  print(f"It took you {Attempts} attempts to guess the number correctly with a score of {101-Attempts}!")
+
+  if Difficulty == "easy":
+    if Attempts < Highscore_easy:
+      Highscore_easy = 101-Attempts
+      with open(f"{Name}", "w+") as Save:
+        Save.write(f"{101-Attempts} {Highscore_medium} {Highscore_hard} {Name}")  
+
+  elif Difficulty == "medium":
+    if Attempts < Highscore_medium:
+      Highscore_medium = 101-Attempts
+      with open(f"{Name}", "w+") as Save:
+        Save.write(f"{Highscore_easy} {101-Attempts} {Highscore_hard} {Name}")
+
+  else:
+    if Attempts < Highscore_hard:
+      Highscore_hard = 101-Attempts
+      with open(f"{Name}", "w+") as Save:
+        Save.write(f"{Highscore_easy} {Highscore_medium} {101-Attempts} {Name}")
+  Play_again = input("Do you want to play again?   ")
+  if Play_again == "no":
+    break
